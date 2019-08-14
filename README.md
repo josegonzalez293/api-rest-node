@@ -12,7 +12,7 @@ Rutas:
   - Post /usuarios/add (Para insertar un usuario)
     - Se le envia un json {"nombre": xxx, "apellido": xxx, "rut": xxx, "profesion": xxx}
   - Post /usuarios/edit (Para editar un usuario)
-    - - Se le envia un json {"id": 1 ,"nombre": xxx, "apellido": xxx, "rut": xxx, "profesion": xxx}
+    - Se le envia un json {"id": 1 ,"nombre": xxx, "apellido": xxx, "rut": xxx, "profesion": xxx}
   
 CREATE DATABASE test;
 
