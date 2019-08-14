@@ -2,7 +2,7 @@
 
 - Hacer npm i en la carpeta del proyecto
 - Ejecutar el sql para crear la nueva DB con sus tablas
-- Configurar usuario, clave y host para la DB en file config.js
+- Configurar usuario, clave y host para la DB en file mysql.js
 - Ejecutar nodemon en la carpeta del proyecto  
 - El proyecto se ejecuta en localhost:3000
 
