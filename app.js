@@ -15,9 +15,9 @@ app.get('/', (req, res) => {
     res.send('HI')
 })
 
-app.get('/usuarios', (req, res) => {
+app.get('/users', (req, res) => {
 
-    let sql = 'SELECT * FROM usuarios'; 
+    let sql = 'SELECT * FROM users'; 
 
     mysql.query(sql, function (e, r, f) {
         if (e) {
@@ -29,10 +29,10 @@ app.get('/usuarios', (req, res) => {
 
 })
 
-app.get('/usuarios/:id', (req, res) => {
+app.get('/users/:id', (req, res) => {
 
     user = req.params.id
-    let sql = 'SELECT * FROM usuarios WHERE id = ' + user; 
+    let sql = 'SELECT * FROM users WHERE id = ' + user; 
     mysql.query(sql, function (e, r, f) {
         if (e) {
             res.send(JSON.stringify({ "status": 500, "error": true, "response": e }));
@@ -43,19 +43,21 @@ app.get('/usuarios/:id', (req, res) => {
 
 })
 
-app.post('/usuarios/add', (req, res) => {
+app.post('/users/add', (req, res) => {
     
     let data = req.body;
-    if (data.nombre != '' && data.apellido != '') {
+    if (data.name != '' && data.lastname != '') {
         
-        let sql = 'INSERT INTO usuarios (nombre,apellido,rut,profesion)'
-            sql+= 'values("'+data.nombre+'","'+data.apellido+'","'+data.rut+'","'+data.profesion+'")'
+        // (typeof data.name !== 'undefined' && data.name != '') ? name = escape(data.name) : name = ''
+
+        let sql = 'INSERT INTO users (name,lastname,rut,job)'
+            sql+= 'values("'+data.name+'","'+data.lastname+'","'+data.rut+'","'+data.job+'")'
 
         mysql.query(sql, function (e, r, f) {
             if (e) {
                 res.send(JSON.stringify({ "status": 500, "error": true, "response": e }));
             } else {
-                res.send(JSON.stringify({ "status": 200, "response": "Guardado" }));
+                res.send(JSON.stringify({ "status": 200, "response": "Saved" }));
             }
         })
 
@@ -65,26 +67,26 @@ app.post('/usuarios/add', (req, res) => {
 
 })
 
-app.post('/usuarios/edit', (req, res) => {
+app.post('/users/edit', (req, res) => {
 
     let data = req.body;
 
     if (typeof data.id !== 'undefined' && data.id != '') {
 
-        let sql = 'UPDATE usuarios set '
+        let sql = 'UPDATE users set '
         
-        if (typeof data.nombre !== 'undefined' && data.nombre != '')
-            sql += 'nombre = "' + data.nombre + '",'
+        if (typeof data.name !== 'undefined' && data.name != '')
+            sql += 'name = "' + data.name + '",'
 
-        if (typeof data.apellido !== 'undefined' && data.apellido != '')
-            sql += ' apellido = "' + data.apellido + '",'
+        if (typeof data.lastname !== 'undefined' && data.lastname != '')
+            sql += ' lastname = "' + data.lastname + '",'
 
 
         if (typeof data.rut !== 'undefined' && data.rut != '')
             sql += ' rut = "' + data.rut + '",'
 
-        if (typeof data.profesion !== 'undefined' && data.profesion != '')
-            sql += ' profesion = "' + data.profesion + '"'
+        if (typeof data.job !== 'undefined' && data.job != '')
+            sql += ' job = "' + data.job + '"'
 
         sql += ' WHERE id = ' + data.id
 
@@ -92,7 +94,7 @@ app.post('/usuarios/edit', (req, res) => {
             if (e) {
                 res.send(JSON.stringify({ "status": 500, "error": true, "response": e }));
             } else {
-                res.send(JSON.stringify({ "status": 200, "response": "Guardado" }));
+                res.send(JSON.stringify({ "status": 200, "response": "Saved" }));
             }
         })
 
@@ -101,3 +103,7 @@ app.post('/usuarios/edit', (req, res) => {
     }
 
 })
+
+// function escape(data){
+//     return mysql.escape(data)
+// }
